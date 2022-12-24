@@ -7,6 +7,8 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 axios.defaults.baseURL = process.env.NODE_ENV == 'development' ? 'http://localhost:28089/admin-api' : 'http://localhost:28089/admin-api'
+//axios.defaults.baseURL = process.env.NODE_ENV == 'development' ? 'http://150.158.191.247:28089/admin-api' : 'http://150.158.191.247:28089/admin-api'
+
 axios.defaults.withCredentials = false
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers['Authorization'] = localGet('token') || ''

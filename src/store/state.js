@@ -3,6 +3,8 @@ const state = {
   classifyObj: {},
   typeObj: {},
   filmSearchObj: {},
+  cinemaObj: {},
+  carouselObj: {},
 }
 
 export default state

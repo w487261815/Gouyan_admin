@@ -115,7 +115,7 @@
 					</el-card>
 				</el-col>
 				<el-col :span="3" style="margin-top: 20px;text-align: center;">
-					<a href="javascript:void" style="display: block;">
+					<a @click="go('/user')" href="javascript:void" style="display: block;">
 						<el-card shadow="never" style="height:120px">
 							<i class="el-icon-user-solid" style="margin:20px 0 0 0;font-size: 30px;color: rgb(64, 158, 255);"></i>
 							<div style="margin:10px 0 20px 0">
@@ -125,7 +125,7 @@
 					</a>
 				</el-col>
 				<el-col :span="3" style="margin-top: 20px;text-align: center;">
-					<a href="javascript:void" style="display: block;">
+					<a @click="go('/cinemas')" href="javascript:void" style="display: block;">
 						<el-card shadow="never" style="height:120px">
 							<i class="el-icon-video-camera" style="margin:20px 0 0 0;font-size: 30px;color: rgb(64, 158, 255);"></i>
 							<div style="margin:10px 0 20px 0">
@@ -135,7 +135,7 @@
 					</a>
 				</el-col>
 				<el-col :span="3" style="margin-top: 20px;text-align: center;">
-					<a href="javascript:void" style="display: block;">
+					<a @click="go('/order')" href="javascript:void" style="display: block;">
 						<el-card shadow="never" style="height:120px">
 							<i class="el-icon-s-ticket" style="margin:20px 0 0 0;font-size: 30px;color: rgb(255, 156, 110);"></i>
 							<div style="margin:10px 0 20px 0">
@@ -145,7 +145,7 @@
 					</a>
 				</el-col>
 				<el-col :span="3" style="margin-top: 20px;text-align: center;">
-					<a href="javascript:void" style="display: block;">
+					<a @click="go('/films')" href="javascript:void" style="display: block;">
 						<el-card shadow="never" style="height:120px">
 							<i class="el-icon-film" style="margin:20px 0 0 0;font-size: 30px;color: rgb(255, 156, 110);"></i>
 							<div style="margin:10px 0 20px 0">
@@ -155,7 +155,7 @@
 					</a>
 				</el-col>
 				<el-col :span="3" style="margin-top: 20px;text-align: center;">
-					<a href="javascript:void" style="display: block;">
+					<a @click="go('/echarts')" href="javascript:void" style="display: block;">
 						<el-card shadow="never" style="height:120px">
 							<i class="el-icon-pie-chart" style="margin:20px 0 0 0;font-size: 30px;color: rgb(179, 127, 235);"></i>
 							<div style="margin:10px 0 20px 0">
@@ -165,7 +165,7 @@
 					</a>
 				</el-col>
 				<el-col :span="3" style="margin-top: 20px;text-align: center;">
-					<a href="javascript:void" style="display: block;">
+					<a @click="go('/goods')" href="javascript:void" style="display: block;">
 						<el-card shadow="never" style="height:120px">
 							<i class="el-icon-goods" style="margin:20px 0 0 0;font-size: 30px;color: rgb(179, 127, 235);"></i>
 							<div style="margin:10px 0 20px 0">
@@ -198,7 +198,7 @@
 				<el-col :span="9" style="margin-top: 20px;">
 					<el-card shadow="never">
 						<div style="padding: 20px;display: flex;align-items: center;    border-bottom: 2px solid #ccc;">
-							<img style="border-radius:50%;width:120px;height:120px" src="http://localhost:8080/static/img/img.146655c9.jpg">
+							<img style="border-radius:50%;width:120px;height:120px" src="http://rluy2ixw3.hn-bkt.clouddn.com/gouyan/img112.jpg">
 							<div style="margin-left: 100px;">
 								<span style="font-size: 30px;color: #222;">admin</span>
 								<br>
@@ -214,14 +214,14 @@
 								<span style="flex: 1;font-size: 14px;color: #999;">上次登录地点</span>
 								<span style="margin-left:30%;flex: 1;font-size: 14px;color: #999;">江苏省苏州市</span>
 							</div>
-							
+
 						</div>
 					</el-card>
 				</el-col>
 				<el-col :span="15" style="margin-top: 20px;">
 					<el-card shadow="never">
 						<div style="border-bottom: 1px solid #ccc;padding:0 10px 0 10px;display: flex;justify-content: space-between;align-items: baseline">
-							<span >用户留言</span>
+							<span>用户留言</span>
 							<el-button type="text">查看更多</el-button>
 						</div>
 						<div>
@@ -229,13 +229,13 @@
 								<li>
 									<div style="display: flex;align-items: center;border-bottom: 1px solid #ccc;">
 										<div style="padding:7px 10px 7px 10px">
-											<img style="border-radius:50%;width:50px;height:50px" src="http://localhost:8080/static/img/img.146655c9.jpg">
+											<img style="border-radius:50%;width:50px;height:50px" src="http://rluy2ixw3.hn-bkt.clouddn.com/gouyan/img112.jpg">
 										</div>
 										<div>
-											<span>Ah Jung 刚才把工作台页面随便写了一些，凑合能看了！</span>
-					
+											<span>狗眼电影后台管理</span>
+
 											<div style="margin-top: 10px;">
-												<span style="flex: 1;font-size: 14px;color: #999;">2021-07-04 22:37:16</span>
+												<span style="flex: 1;font-size: 14px;color: #999;">2022-12-22 22:37:16</span>
 											</div>
 										</div>
 									</div>
@@ -243,13 +243,13 @@
 								<li>
 									<div style="display: flex;align-items: center;border-bottom: 1px solid #ccc;">
 										<div style="padding:10px">
-											<img style="border-radius:50%;width:50px;height:50px" src="http://localhost:8080/static/img/img.146655c9.jpg">
+											<img style="border-radius:50%;width:50px;height:50px" src="http://rluy2ixw3.hn-bkt.clouddn.com/gouyan/img112.jpg">
 										</div>
 										<div>
-											<span>Ah Jung 刚才把工作台页面随便写了一些，凑合能看了！</span>
-					
+											<span>狗眼电影后台管理</span>
+
 											<div style="margin-top: 10px;">
-												<span style="flex: 1;font-size: 14px;color: #999;">2021-07-04 22:37:16</span>
+												<span style="flex: 1;font-size: 14px;color: #999;">2022-12-22 22:37:16</span>
 											</div>
 										</div>
 									</div>
@@ -257,13 +257,13 @@
 								<li>
 									<div style="display: flex;align-items: center;border-bottom: 1px solid #ccc;">
 										<div style="padding:10px">
-											<img style="border-radius:50%;width:50px;height:50px" src="http://localhost:8080/static/img/img.146655c9.jpg">
+											<img style="border-radius:50%;width:50px;height:50px" src="http://rluy2ixw3.hn-bkt.clouddn.com/gouyan/img112.jpg">
 										</div>
 										<div>
-											<span>Ah Jung 刚才把工作台页面随便写了一些，凑合能看了！</span>
-					
+											<span>狗眼电影后台管理</span>
+
 											<div style="margin-top: 10px;">
-												<span style="flex: 1;font-size: 14px;color: #999;">2021-07-04 22:37:16</span>
+												<span style="flex: 1;font-size: 14px;color: #999;">2022-12-22 22:37:16</span>
 											</div>
 										</div>
 									</div>
@@ -279,13 +279,31 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			go(i) {
+				this.$router.push({
+					path: i
+				})
+			}
+		},
+		mounted() {
+			
+		}
+	}
 </script>
 
 <style>
-	ul{
+	ul {
 		padding: 0px !important;
 		margin: 0px !important;
 	}
+	
 	.grid-content .bg-purple {
 		background-color: rgb(255, 255, 255) !important;
 	}

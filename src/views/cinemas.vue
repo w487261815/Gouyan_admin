@@ -10,35 +10,32 @@
 			</div>
 			<div style="margin-left: 30px;margin-top: 10px;">
 				<el-form style="display: flex;flex-wrap: wrap" :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-					<el-form-item style="margin-right: 40px;" label="电影名称">
+					<el-form-item style="margin-right: 40px;" label="影院名称">
 						<el-input style="width:203px" size="mini" v-model="ruleForm.content"></el-input>
 					</el-form-item>
-					<el-form-item style="margin-right: 40px;" label="演员姓名">
-						<el-input style="width:203px" size="mini" v-model="ruleForm.actor"></el-input>
+					<el-form-item style="margin-right: 40px;" label="最低价格">
+						<el-input style="width:203px" size="mini" v-model="ruleForm.low_money"></el-input>
 					</el-form-item>
-					<el-form-item style="margin-right: 40px;" label="标签类型">
-						<el-select style="width:203px" size="mini" v-model="ruleForm.labelType" placeholder="请选择">
-							<el-option v-for="(item,index) in labelType" :key="item.value" :label="item.label" :value="item.value">
+					<el-form-item style="margin-right: 40px;" label="影院品牌">
+						<el-select style="width:203px" size="mini" v-model="ruleForm.brand_id" placeholder="请选择">
+							<el-option v-for="(item,index) in base_types.brandlist" :key="item.id" :label="item.content" :value="item.id">
 							</el-option>
 						</el-select>
 					</el-form-item>
-					<el-form-item style="margin-right: 40px;" label="电影类型">
-						<el-select style="width:203px" size="mini" v-model="ruleForm.type" placeholder="请选择">
-							<el-option v-for="(item,index) in ruleForm.types" :key="item.id" :label="item.content" :value="item.content">
+					<el-form-item style="margin-right: 40px;" label="影院类型">
+						<el-select style="width:203px" size="mini" v-model="ruleForm.label_id" placeholder="请选择">
+							<el-option v-for="(item,index) in base_types.typelist" :key="item.id" :label="item.content" :value="item.id">
 							</el-option>
 						</el-select>
 					</el-form-item>
-					<el-form-item style="margin-right: 40px;" label="上映年代">
-						<el-select style="width:203px" size="mini" v-model="ruleForm.age" placeholder="请选择">
-							<el-option v-for="(item,index) in ruleForm.ages" :key="item.id" :label="item.content" :value="item.content">
+					<el-form-item style="margin-right: 40px;" label="服务类型">
+						<el-select style="width:203px" size="mini" v-model="ruleForm.serve_id" placeholder="请选择">
+							<el-option v-for="(item,index) in base_types.servelist" :key="item.id" :label="item.content" :value="item.id">
 							</el-option>
 						</el-select>
 					</el-form-item>
-					<el-form-item style="margin-right: 40px;" label="上映城市">
-						<el-select style="width:203px" size="mini" v-model="ruleForm.city" placeholder="请选择">
-							<el-option v-for="(item,index) in ruleForm.citys" :key="item.id" :label="item.content" :value="item.content">
-							</el-option>
-						</el-select>
+					<el-form-item style="margin-right: 40px;" label="行政地区">
+						<el-cascader v-model="ruleForm.city_id" style="width:203px" size="mini" :props="props"></el-cascader>
 					</el-form-item>
 				</el-form>
 			</div>
@@ -60,17 +57,17 @@
 					<el-table-column type="selection" width="55">
 
 					</el-table-column>
-					<el-table-column label="电影图片" width="120">
+					<el-table-column label="影院名称" width="180">
 						<template slot-scope="scope">
 							<div style="text-align: center;">
-								<img style="width:60px;height:80px" :src="base_data['imgbase']+scope.row.img_src">
+								{{scope.row.cinema_name}}
 							</div>
 						</template>
 					</el-table-column>
-					<el-table-column label="电影名称" width="190">
+					<el-table-column label="影院地址" width="190">
 						<template slot-scope="scope">
 							<div style="text-align: center;">
-								{{scope.row.content}}
+								{{scope.row.cinema_address}}
 							</div>
 						</template>
 					</el-table-column>
@@ -81,10 +78,14 @@
 							</div>
 						</template>
 					</el-table-column>
-					<el-table-column label="上映时间" width="150">
+					<el-table-column label="影院标签" width="150">
 						<template slot-scope="scope">
 							<div style="text-align: center;">
-								{{scope.row.showdate.slice(0,12)}}
+								<div v-for="(item,index) in scope.row.label.slice(0,3)">
+									<el-tag size="mini">
+										{{item}}
+									</el-tag>
+								</div>
 							</div>
 						</template>
 					</el-table-column>
@@ -100,47 +101,29 @@
 							</div>
 						</template>
 					</el-table-column>
-					<el-table-column label="类型" width="100">
+					<el-table-column label="服务类型" width="100">
 						<template slot-scope="scope">
 							<div style="text-align: center;">
-								{{scope.row.type}}
+								{{scope.row.serve_label}}
 							</div>
 						</template>
 					</el-table-column>
-					<el-table-column label="演员" width="100">
+					<el-table-column label="手机号" width="150">
 						<template slot-scope="scope">
 							<div style="text-align: center;">
-								{{scope.row.actor}}
+								{{scope.row.cinema_tel}}
 							</div>
 						</template>
 					</el-table-column>
-					<el-table-column label="标签" width="150">
-						<template slot-scope="scope">
-							<div style="text-align: center;">
-								<span>热映：</span>
-								<el-switch @change="Changhot(scope.row)" active-value="1" inactive-value="0" v-model="scope.row.ishot" active-color="rgb(64,158,255)" inactive-color="rgb(220,223,230)">
-								</el-switch>
-							</div>
-							<div style="text-align: center;margin-top: 10px;">
-								<span>最新：</span>
-								<el-switch @change="Changnew(scope.row)" active-value="1" inactive-value="0" v-model="scope.row.isnew" active-color="rgb(64,158,255)" inactive-color="rgb(220,223,230)">
-								</el-switch>
-							</div>
-							<div style="text-align: center;margin-top: 10px;">
-								<span>经典：</span>
-								<el-switch @change="Changcla(scope.row)" active-value="1" inactive-value="0" v-model="scope.row.iscla" active-color="rgb(64,158,255)" inactive-color="rgb(220,223,230)">
-								</el-switch>
-							</div>
-						</template>
-					</el-table-column>
+
 					<el-table-column label="操作">
 						<template slot-scope="scope">
 							<div style="text-align: center;">
-								<el-button size="mini" @click="changeFilm(scope.row)">修改电影</el-button>
-								<el-button @click="DelOnly(scope.row.id)" size="mini" type="danger">删除电影</el-button>
+								<el-button size="mini" @click="changeFilm(scope.row)">修改影院</el-button>
+								<el-button @click="DelOnly(scope.row.id)" size="mini" type="danger">删除影院</el-button>
 							</div>
 							<div style="text-align: center;margin-top: 10px;">
-								<el-button size="mini" @click="showDetail(scope.row)">查看详情</el-button>
+								<el-button size="mini" @click="">查看详情</el-button>
 								<el-button @click="" size="mini" type="primary">查看票房</el-button>
 							</div>
 						</template>
@@ -181,8 +164,10 @@
 <script>
 	import { pathMap } from '@/until/index'
 	import { mapGetters, mapMutations } from 'vuex'
-	import { getFilm, delFilms, updateSta } from '@/service/films'
+	import { getCinema, delCinema, updateSta } from '@/service/cinema'
 	import { getClassifies } from '@/service/classify'
+	import { getCinemaBrandCity, getCinemaBrandType } from '@/service/cinemabrand'
+	let id = 1
 	export default {
 		computed: {
 			...mapGetters([
@@ -193,6 +178,32 @@
 		},
 		data() {
 			return {
+				props: {
+					lazy: true,
+					async lazyLoad(node, resolve) {
+						const {
+							level = 0, value
+						} = node;
+						let params={
+							ConfigType:value||0,
+							pageNumber:1,
+							pageSize:1000,
+						}
+						const {
+							resultCode,
+							data
+						} = await getCinemaBrandCity(params)
+						setTimeout(() => {
+							const list = data.data
+							const nodes = list.map(item => ({
+								value: item.id,
+								label: item.content,
+								leaf: level > 1|| item.childs=='false'
+							}))
+							resolve(nodes);
+						}, 500);
+					}
+				},
 				labelType: [{
 					value: '1',
 					label: '热映电影'
@@ -204,15 +215,12 @@
 					label: '经典电影'
 				}],
 				ruleForm: {
-					actor: '',
+					brand_id: '',
+					city_id: '',
+					serve_id: '',
+					label_id: '',
 					content: '',
-					labelType: '',
-					type: '',
-					age: '',
-					city: '',
-					types: [],
-					ages: [],
-					citys: [],
+					low_money: '',
 				},
 				title: '',
 				multipleTable: [],
@@ -231,30 +239,6 @@
 					{
 						value: 3,
 						label: "批量解除禁用"
-					},
-					{
-						value: 4,
-						label: "设置批量热映"
-					},
-					{
-						value: 5,
-						label: "批量取消热映"
-					},
-					{
-						value: 6,
-						label: "设置批量最新"
-					},
-					{
-						value: 7,
-						label: "批量取消最新"
-					},
-					{
-						value: 8,
-						label: "设置批量经典"
-					},
-					{
-						value: 9,
-						label: "批量取消经典"
 					}
 				],
 				page_choice: [{
@@ -279,31 +263,23 @@
 				},
 				value: '',
 				base_data: [],
+				base_types: [],
 			};
 		},
 		methods: {
 			...mapMutations([
 				'setclassify',
 				'settype',
-				'setfilmSearch'
+				'setfilmSearch',
 			]),
-			showDetail(i){
-				console.log(i.id)
-				this.$router.push({
-					path: '/film_detail',
-					query: {
-						id: i.id
-					}
-				})
-			},
 			insert(){
 				this.$router.push({
-					path: '/addfilm'
+					path: '/addcinema'
 				})
 			},
 			changeFilm(i) {
 				this.$router.push({
-					path: '/addfilm',
+					path: '/addcinema',
 					query: {
 						id: i.id
 					}
@@ -317,78 +293,54 @@
 				this.ruleForm.age = ''
 				this.ruleForm.city = ''
 			},
-			Changcla(i) {
-				let Ids = new Array();
-				Ids.push(i.id)
-				console.log(i.iscla)
-				this.ChangeSt(3, Ids, i.iscla)
-			},
-			Changnew(i) {
-				let Ids = new Array();
-				Ids.push(i.id)
-				console.log(i.isnew)
-				this.ChangeSt(2, Ids, i.isnew)
-			},
-			Changhot(i) {
-				let Ids = new Array();
-				Ids.push(i.id)
-				console.log(i.ishot)
-				this.ChangeSt(1, Ids, i.ishot)
-			},
-			async ChangeSt(i, j, k) {
+			async ChangeSt(i, j) {
 				const {
 					data,
 					resultCode
 				} = await updateSta(i, {
-					ids: j,
-					sta: k
+					ids: j
 				})
 				if(resultCode == 200) {
 					this.$message({
 						type: 'success',
 						message: "操作成功"
 					});
-					this.getFilms()
 				}
-				
 			},
 			searchData() {
+				console.log(this.ruleForm)
 				let param = {
 					pageNumber: 1,
 					pageSize: this.page.pageSize,
-					actor: this.ruleForm.actor,
+					brand_id: this.ruleForm.brand_id,
 					content: this.ruleForm.content,
-					labelType: this.ruleForm.labelType,
-					type: this.ruleForm.type,
-					age: this.ruleForm.age,
-					city: this.ruleForm.city,
+					city_id: this.ruleForm.city_id==undefined?"":this.ruleForm.city_id[this.ruleForm.city_id.length-1],
+					label_id: this.ruleForm.label_id,
+					low_money: this.ruleForm.low_money,
+					serve_id: this.ruleForm.serve_id,
 				}
 				this.setfilmSearch(param)
 				this.page.current = 1
-				this.getFilms()
-			},
-			async getclassifies(type, params) {
-				const {
-					data,
-					resultCode
-				} = await getClassifies()
-				if(resultCode == 200) {
-					this.ruleForm.types = data.type
-					this.ruleForm.ages = data.age
-					this.ruleForm.citys = data.city
-				}
+				this.getCinemas()
 			},
 			async UpdateStatus(type, params) {
 				const {
 					resultCode
 				} = await updateSta(type, params)
 				if(resultCode == 200) {
-					this.getFilms()
+					this.getCinemas()
 					this.$message({
 						type: 'success',
 						message: this.value
 					});
 				}
+			},
+			async GetCinemaBrandType() {
+				const {
+					data,
+					resultCode
+				} = await getCinemaBrandType()
+				this.base_types = data
 			},
 			open() {
 				if(this.value == '') {
@@ -408,33 +360,15 @@
 					type: 'warning'
 				}).then(() => {
 					if(this.value == 1) {
-						this.ChangeSt(4, Ids, 0)
+						this.ChangeSt(1, Ids)
 					}
 					if(this.value == 2) {
 						this.DeleteFilms(Ids)
 					}
 					if(this.value == 3) {
-						this.ChangeSt(4, Ids, 1)
+						this.ChangeSt(0, Ids)
 					}
-					if(this.value == 4) {
-						this.ChangeSt(1, Ids, 1)
-					}
-					if(this.value == 5) {
-						this.ChangeSt(1, Ids, 0)
-					}
-					if(this.value == 6) {
-						this.ChangeSt(2, Ids, 1)
-					}
-					if(this.value == 7) {
-						this.ChangeSt(2, Ids, 0)
-					}
-					if(this.value == 8) {
-						this.ChangeSt(3, Ids, 1)
-					}
-					if(this.value == 9) {
-						this.ChangeSt(3, Ids, 0)
-					}
-					this.getFilms()
+					this.getCinemas()
 				});
 			},
 			DelOnly(i) {
@@ -452,13 +386,13 @@
 			async DeleteFilms(i) {
 				const {
 					resultCode
-				} = await delFilms({
+				} = await delCinema({
 					data: {
 						ids: i
 					}
 				})
 				if(resultCode == 200) {
-					this.getFilms()
+					this.getCinemas()
 					this.$message({
 						message: '删除成功',
 						type: 'success'
@@ -471,22 +405,22 @@
 			changPage(i) {
 				this.page.current = 1
 				this.page.pageSize = i
-				this.getFilms()
+				this.getCinemas()
 			},
 			currentChange(i) {
 				this.page.current = i
-				this.getFilms()
+				this.getCinemas()
 			},
 			add() {
 
 			},
-			async getFilms() {
+			async getCinemas() {
 				this.filmSearchObj.pageNumber = this.page.current
 				this.filmSearchObj.pageSize = this.page.pageSize
 				const {
 					data,
 					resultCode
-				} = await getFilm(this.filmSearchObj)
+				} = await getCinema(this.filmSearchObj)
 				this.classifydata = data.data
 				this.page.totalSize = data.totalSize
 				this.page.totalPage = data.pageSize * 10
@@ -494,8 +428,8 @@
 		},
 		async mounted() {
 			this.base_data = pathMap
-			this.getFilms()
-			this.getclassifies()
+			this.getCinemas()
+			this.GetCinemaBrandType()
 		}
 	}
 </script>

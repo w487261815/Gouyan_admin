@@ -12,16 +12,10 @@ export function getFilmOnly(params) {
 export function updateSta(type,params) {
   return axios.post(`/v1/films/${type}`, params);
 }
-
-
-
-export function addClassify(params) {
-  return axios.post('/v1/classify', params);
+export function updateFilmOnly(ids,params) {
+  return axios.put(`/v1/films/${ids}`,params);
 }
-export function delClassify(params) {
-  return axios.delete('/v1/classify', params);
-}
-export function updateClassify(params) {
-  return axios.put('/v1/classify', params);
+export function delFilms(params) {
+  return axios.delete('/v1/films', params);
 }
 

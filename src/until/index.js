@@ -16,5 +16,6 @@ export function localRemove (key) {
 }
 
 export const pathMap = {
-  imgbase: 'http://rluy2ixw3.hn-bkt.clouddn.com/gouyan/',
+  //imgbase: 'http://rluy2ixw3.hn-bkt.clouddn.com/gouyan/',
+  	imgbase: 'http://localhost:28089/image/'
 }

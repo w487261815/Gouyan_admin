@@ -25,12 +25,24 @@
 	import SideBar from '@/components/SideBar.vue'
 	import Header from '@/components/Header.vue'
 	import Tags from '@/components/Tags.vue'
+	import { mapGetters, mapMutations } from 'vuex'
 	export default {
 		name: 'App',
 		components: {
 			SideBar,
 			Header,
 			Tags
+		},
+		watch: {
+			$route(newName, oldName) {
+				console.log(newName)
+				this.resetVuex()
+			},
+		},
+		methods: {
+			...mapMutations([
+				'resetVuex'
+			]),
 		}
 	}
 </script>

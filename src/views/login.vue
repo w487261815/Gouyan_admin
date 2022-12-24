@@ -37,8 +37,8 @@
 			return {
 				login_center_bg: 'https://www.macrozheng.com/admin/static/img/login_center_bg.5307896.png',
 				state: {
-					username: '',
-					password: '',
+					username: 'admin',
+					password: '123456',
 				},
 				input1: ''
 			}

@@ -47,15 +47,15 @@
 					</template>
 				</el-form-item>
 				<el-form-item label="电影图片" prop="imageUrl">
-					<el-upload class="avatar-uploader" action="http://localhost:28089/admin-api/v1/uploadImg" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-						<img v-if="ruleForm.imageUrl" :src="ruleForm.imageUrl" class="avatar">
+					<el-upload class="avatar-uploader" action="http://150.158.191.247:28089/admin-api/v1/uploadImg" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+						<img v-if="ruleForm.imageUrl" :src="base_data['imgbase']+ruleForm.imageUrl" class="avatar">
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
 				</el-form-item>
 
 			</el-form>
 			<div style="margin-left: 100px;">
-				<el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+				<el-button type="primary" @click="submitForm('ruleForm')">{{buttonTitle}}</el-button>
 			</div>
 
 		</el-card>
@@ -65,15 +65,17 @@
 <script>
 	import { getClassifies } from '@/service/classify'
 	import { pathMap } from '@/until/index'
-	import { addFilm, getFilmOnly } from '@/service/films'
+	import { addFilm, getFilmOnly, updateFilmOnly } from '@/service/films'
 	export default {
 		data() {
 			return {
+				buttonTitle: '立即创建',
 				dynamicTags: [],
 				inputVisible: false,
 				inputValue: '',
 				showAdd: true,
 				base_data: [],
+				film_base: [],
 				ruleForm: {
 					age: '',
 					type: '',
@@ -87,9 +89,9 @@
 					sort: 0,
 					imageUrl: '',
 					imgSrc: '',
-					typed:'',
+					typed: '',
 				},
-				limits:3,
+				limits: 3,
 				rules: {
 					type: [{
 						required: true,
@@ -140,7 +142,7 @@
 		methods: {
 
 			handleAvatarSuccess(res, file) {
-				this.ruleForm.imageUrl = this.base_data['imgbase'] + res.message
+				this.ruleForm.imageUrl = res.message
 				this.ruleForm.imgSrc = res.message
 			},
 			beforeAvatarUpload(file) {
@@ -201,12 +203,22 @@
 					showdate: typeof(this.ruleForm.showdate) == 'string' ? this.ruleForm.showdate : this.getTime(this.ruleForm.showdate),
 					use: this.ruleForm.check == 1 ? 'true' : 'false'
 				}
-				const {
-					data,
-					resultCode
-				} = await addFilm(param)
-				if(resultCode == 200) {
-					location.reload()
+				if(this.buttonTitle == '立即创建') {
+					const {
+						data,
+						resultCode
+					} = await addFilm(param)
+					if(resultCode == 200) {
+						location.reload()
+					}
+				} else {
+					const {
+						data,
+						resultCode
+					} = await updateFilmOnly(this.film_base.id,param)
+					if(resultCode == 200) {
+						location.reload()
+					}
 				}
 			},
 			getTime(date) {
@@ -227,8 +239,33 @@
 				}
 				console.log(this.ruleForm)
 			},
+			async getOnlyFilms(ids) {
+				const {
+					data,
+					resultCode
+				} = await getFilmOnly(ids)
+
+				this.ruleForm.age = data.age
+				this.ruleForm.type = data.typeList
+				this.ruleForm.city = data.city
+				this.ruleForm.content = data.content
+				this.ruleForm.showdate = data.showdate.slice(0, 12)
+				this.dynamicTags = data.actorList
+				this.ruleForm.sort = data.sort
+				this.ruleForm.imageUrl = data.img_src
+				console.log(this.ruleForm.showdate.slice(0, 12))
+				this.ruleForm.imgSrc = data.img_src
+				this.film_base = data
+			}
 		},
 		async mounted() {
+			console.log(this.$route.query.id)
+			let pand = this.$route.query.id
+
+			if(pand != undefined) {
+				this.buttonTitle = '立即修改'
+				this.getOnlyFilms(pand)
+			}
 			this.base_data = pathMap
 			this.getclassifies()
 		}

@@ -14,6 +14,19 @@ const mutations = {
   settype (state, typeObj) {
     state.typeObj = typeObj
   },
+  setcinema (state, cinemaObj) {
+    state.cinemaObj = cinemaObj
+  },
+  setcarousel (state, carouselObj) {
+    state.carouselObj = carouselObj
+  },
+  resetVuex (state) {
+  	state.carouselObj = {}
+    state.cinemaObj = {}
+    state.typeObj = {}
+    state.filmSearchObj = {}
+    state.classifyObj = {}
+  }
 }
 
 export default mutations

@@ -18,3 +18,10 @@ export function updateCinemaBrand(params) {
 export function updateSta(type,params) {
   return axios.post(`/v1/cinemaBrand/${type}`, params);
 }
+
+export function getCinemaBrandType() {
+  return axios.post('/v1/cinemaBrandList');
+}
+export function getCinemaBrandCity(params) {
+  return axios.get('/v1/cinemaCityBrand',{params});
+}

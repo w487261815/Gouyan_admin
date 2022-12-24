@@ -31,6 +31,86 @@ export default new Router({
 			},
 			children: [
 				{
+					path: '/cinemadetail',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/cinema_detail.vue'),
+					meta: {
+						title: '影院详情'
+					}
+				},
+				{
+					path: '/addticket',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/add_ticket.vue'),
+					meta: {
+						title: '添加商品'
+					}
+				},
+				{
+					path: '/film_detail',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/film_detail.vue'),
+					meta: {
+						title: '电影详情'
+					}
+				},
+				{
+					path: '/addgoods',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/add_goods.vue'),
+					meta: {
+						title: '添加商品'
+					}
+				},
+				{
+					path: '/carousel',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/carousel.vue'),
+					meta: {
+						title: '添加商品'
+					}
+				},
+				{
+					path: '/goods',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/goods.vue'),
+					meta: {
+						title: '商品管理'
+					}
+				},
+				{
+					path: '/order_detail',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/order_detail.vue'),
+					meta: {
+						title: '详细订单'
+					}
+				},
+				{
+					path: '/order',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/order.vue'),
+					meta: {
+						title: '订单管理'
+					}
+				},
+				{
+					path: '/user',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/user.vue'),
+					meta: {
+						title: '用户管理'
+					}
+				},
+				{
+					path: '/addcinema',
+					component: () =>
+						import( /* webpackChunkName: "dashboard" */ '@/views/add_cinema.vue'),
+					meta: {
+						title: '添加影院'
+					}
+				},
+				{
 					path: '/addfilm',
 					component: () =>
 						import( /* webpackChunkName: "dashboard" */ '@/views/add_film.vue'),
@@ -63,30 +143,6 @@ export default new Router({
 					}
 				},
 				{
-					path: '/city_sort',
-					component: () =>
-						import( /* webpackChunkName: "dashboard" */ '@/views/city_sort.vue'),
-					meta: {
-						title: '地区分类'
-					}
-				},
-				{
-					path: '/sysmanage',
-					component: () =>
-						import( /* webpackChunkName: "icon" */ '@/views/sysmanage.vue'),
-					meta: {
-						title: '自定义图标'
-					}
-				},
-				{
-					path: '/sysutil',
-					component: () =>
-						import( /* webpackChunkName: "table" */ '@/views/sysutil.vue'),
-					meta: {
-						title: '基础表格'
-					}
-				},
-				{
 					path: '/goodsrz',
 					component: () =>
 						import( /* webpackChunkName: "tabs" */ '@/views/goodsrz.vue'),
@@ -108,6 +164,14 @@ export default new Router({
 						import( /* webpackChunkName: "tabs" */ '@/views/films.vue'),
 					meta: {
 						title: '电影管理'
+					}
+				},
+				{
+					path: '/cinemas',
+					component: () =>
+						import( /* webpackChunkName: "tabs" */ '@/views/cinemas.vue'),
+					meta: {
+						title: '影院管理'
 					}
 				},
 				{

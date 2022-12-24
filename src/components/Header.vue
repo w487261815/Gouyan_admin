@@ -1,22 +1,11 @@
 <template>
 	<div class="wrapperd">
 		<div style="margin-left:10px;display: flex;align-items: center;">
-			<div class="collapse-btn" @click="collapseChage">
-				<i v-if="!collapse" class="el-icon-s-fold"></i>
-				<i v-else class="el-icon-s-unfold"></i>
-			</div>
 			<div style="margin-left: 30px;">
 				<el-breadcrumb separator="/">
-					<el-breadcrumb-item>活动列表</el-breadcrumb-item>
-					<el-breadcrumb-item>活动详情</el-breadcrumb-item>
+					<el-breadcrumb-item>狗眼电影后台</el-breadcrumb-item>
+					<el-breadcrumb-item>{{name}}</el-breadcrumb-item>
 				</el-breadcrumb>
-			</div>
-		</div>
-		<div style="display: flex;align-items: center;">
-			<div style="font-size: 20px;">
-				<i class="el-icon-edit"></i>
-				<i class="el-icon-share"></i>
-				<i class="el-icon-delete"></i>
 			</div>
 		</div>
 	</div>
@@ -28,12 +17,17 @@
 			return {
 				collapse: false,
 				fullscreen: false,
-				name: 'linxin',
-				message: 2
+				name: '系统首页',
+				message: 2,
 			};
 		},
 		computed: {
 
+		},
+		watch: {
+			$route(newName, oldName) {
+				this.name = newName.meta.title
+			},
 		},
 		methods: {
 			collapseChage() {
@@ -41,6 +35,7 @@
 			}
 		},
 		mounted() {
+			this.name = this.$route.meta.title
 
 		}
 	};
